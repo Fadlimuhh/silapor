@@ -1,28 +1,31 @@
 @extends('layouts.app')
 
-@section('title', 'SiLapor | Tambah Laporan')
+@section('title', 'SiLapor | Edit Laporan')
 
 @section('content')
 
 <div class="container-fluid">
 
     <h1 class="h3 mb-4 text-gray-800">
-        Tambah Laporan
+        Edit Laporan
     </h1>
 
     <div class="card shadow mb-4">
 
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">
-                Form Laporan
+                Form Edit Laporan
             </h6>
         </div>
 
         <div class="card-body">
 
-            <form action="{{ route('laporan.store') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('laporan.update', $report->id) }}"
+                  method="POST"
+                  enctype="multipart/form-data">
 
                 @csrf
+                @method('PUT')
 
                 <!-- Judul & Kategori -->
                 <div class="row">
@@ -37,8 +40,7 @@
                                 class="form-control"
                                 id="judul"
                                 name="judul"
-                                value="{{ old('judul') }}"
-                                placeholder="Masukkan judul laporan"
+                                value="{{ old('judul', $report->judul) }}"
                                 required>
 
                             @error('judul')
@@ -67,7 +69,7 @@
 
                                     <option
                                         value="{{ $category->id }}"
-                                        {{ old('category_id') == $category->id ? 'selected' : '' }}>
+                                        {{ old('category_id', $report->category_id) == $category->id ? 'selected' : '' }}>
                                         {{ $category->name }}
                                     </option>
 
@@ -96,8 +98,7 @@
                         class="form-control"
                         id="alamat"
                         name="alamat"
-                        value="{{ old('alamat') }}"
-                        placeholder="Masukkan alamat kejadian"
+                        value="{{ old('alamat', $report->alamat) }}"
                         required>
 
                     @error('alamat')
@@ -110,7 +111,7 @@
                 <div class="form-group">
 
                     <label for="foto">
-                        Upload Foto
+                        Foto
                     </label>
 
                     <input
@@ -120,8 +121,15 @@
                         name="foto"
                         accept=".jpg,.jpeg,.png">
 
+                    @if($report->foto)
+                        <small class="form-text text-muted">
+                            Foto saat ini:
+                            {{ $report->foto }}
+                        </small>
+                    @endif
+
                     <small class="form-text text-muted">
-                        Format JPG, JPEG, atau PNG. Maksimal 2 MB.
+                        Kosongkan jika tidak ingin mengganti foto.
                     </small>
 
                     @error('foto')
@@ -133,17 +141,44 @@
                 <!-- Status -->
                 <div class="form-group">
 
-                    <label>Status</label>
+                    <label for="status">
+                        Status
+                    </label>
 
-                    <input
-                        type="text"
+                    <select
                         class="form-control"
-                        value="Menunggu"
-                        readonly>
+                        id="status"
+                        name="status">
 
-                    <small class="form-text text-muted">
-                        Status awal laporan akan otomatis menjadi menunggu.
-                    </small>
+                        <option
+                            value="menunggu"
+                            {{ old('status', $report->status) == 'menunggu' ? 'selected' : '' }}>
+                            Menunggu
+                        </option>
+
+                        <option
+                            value="diproses"
+                            {{ old('status', $report->status) == 'diproses' ? 'selected' : '' }}>
+                            Diproses
+                        </option>
+
+                        <option
+                            value="selesai"
+                            {{ old('status', $report->status) == 'selesai' ? 'selected' : '' }}>
+                            Selesai
+                        </option>
+
+                        <option
+                            value="ditolak"
+                            {{ old('status', $report->status) == 'ditolak' ? 'selected' : '' }}>
+                            Ditolak
+                        </option>
+
+                    </select>
+
+                    @error('status')
+                        <small class="text-danger">{{ $message }}</small>
+                    @enderror
 
                 </div>
 
@@ -159,8 +194,7 @@
                         id="deskripsi"
                         name="deskripsi"
                         rows="5"
-                        placeholder="Tuliskan deskripsi laporan..."
-                        required>{{ old('deskripsi') }}</textarea>
+                        required>{{ old('deskripsi', $report->deskripsi) }}</textarea>
 
                     @error('deskripsi')
                         <small class="text-danger">{{ $message }}</small>
@@ -181,7 +215,7 @@
                     type="submit"
                     class="btn btn-primary">
                     <i class="fas fa-save"></i>
-                    Simpan Laporan
+                    Simpan Perubahan
                 </button>
 
             </form>

@@ -4,11 +4,20 @@
       <div class="container">
         <div class="row gy-4">
           <div class="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center" data-aos="zoom-out">
-            <h1>Better Solutions For Your Business</h1>
-            <p>We are team of talented designers making websites with Bootstrap</p>
+            <h1>Laporkan Keluhan Masyarakat dengan Mudah dan Cepat</h1>
+            <p>
+                SiLapor adalah sistem pelaporan masyarakat berbasis web yang memudahkan warga
+                menyampaikan laporan kepada petugas secara cepat, transparan, dan mudah dipantau.
+            </p>
             <div class="d-flex">
-              <a href="#about" class="btn-get-started">Get Started</a>
-              <a href="https://www.youtube.com/watch?v=Y7f98aduVJ8" class="glightbox btn-watch-video d-flex align-items-center"><i class="bi bi-play-circle"></i><span>Watch Video</span></a>
+              <a href="#about" class="btn-get-started">
+                  Pelajari Lebih Lanjut
+              </a>
+
+              <a href="#" class="btn-watch-video d-flex align-items-center">
+                  <i class="bi bi-file-earmark-text"></i>
+                  <span>Buat Laporan</span>
+              </a>
             </div>
           </div>
           <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-out" data-aos-delay="200">
