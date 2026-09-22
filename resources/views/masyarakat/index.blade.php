@@ -6,6 +6,12 @@
 
 <div class="container-fluid">
 
+    @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+
     <!-- Judul -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <div>
@@ -65,12 +71,11 @@
 
             <div class="col-md-4">
 
-                <a href="#" class="btn btn-primary">
+                <a href="{{ route('masyarakat.create') }}" class="btn btn-primary">
 
                     <i class="fas fa-user-plus"></i>
-
                     Tambah Masyarakat
-
+                
                 </a>
 
             </div>
@@ -120,57 +125,60 @@
 
                 <tbody>
 
-                    <tr>
-                        <td>1</td>
-                        <td>3175012345678901</td>
-                        <td>Budi Santoso</td>
-                        <td>081234567890</td>
-                        <td>Jakarta Barat</td>
-                        <td>
-                            <span class="badge badge-success">Aktif</span>
-                        </td>
-                        <td>
+                    @forelse ($masyarakat as $item)
+                        <tr>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $item->nik }}</td>
+                            <td>{{ $item->name }}</td>
+                            <td>{{ $item->no_hp }}</td>
+                            <td>{{ $item->alamat }}</td>
+                            <td>
+                                @if ($item->status === 'aktif')
+                                    <span class="badge badge-success">Aktif</span>
+                                @elseif ($item->status === 'nonaktif')
+                                    <span class="badge badge-danger">Nonaktif</span>
+                                @else
+                                    <span class="badge badge-warning">Belum Verifikasi</span>
+                                @endif
+                            </td>
+                            <td>
 
-                            <button class="btn btn-info btn-sm">
-                                <i class="fas fa-eye"></i>
-                            </button>
+                                <a href="{{ route('masyarakat.show', $item->id) }}"
+                                    class="btn btn-info btn-sm"
+                                    title="Detail">
+                                    <i class="fas fa-eye"></i>
+                                </a>
 
-                            <button class="btn btn-warning btn-sm">
-                                <i class="fas fa-edit"></i>
-                            </button>
+                                <a href="{{ route('masyarakat.edit', $item->id) }}"
+                                    class="btn btn-warning btn-sm"
+                                    title="Edit">
+                                    <i class="fas fa-edit"></i>
+                                </a>
 
-                            <button class="btn btn-danger btn-sm">
-                                <i class="fas fa-trash"></i>
-                            </button>
+                                <form action="{{ route('masyarakat.destroy', $item->id) }}"
+                                    method="POST"
+                                    class="d-inline"
+                                    onsubmit="return confirm('Yakin ingin menghapus data ini?')">
 
-                        </td>
-                    </tr>
+                                    @csrf
+                                    @method('DELETE')
 
-                    <tr>
-                        <td>2</td>
-                        <td>3175012345678902</td>
-                        <td>Andi Saputra</td>
-                        <td>082233445566</td>
-                        <td>Jakarta Selatan</td>
-                        <td>
-                            <span class="badge badge-success">Aktif</span>
-                        </td>
-                        <td>
+                                    <button type="submit" class="btn btn-danger btn-sm" title="Hapus">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
 
-                            <button class="btn btn-info btn-sm">
-                                <i class="fas fa-eye"></i>
-                            </button>
+                                </form>
 
-                            <button class="btn btn-warning btn-sm">
-                                <i class="fas fa-edit"></i>
-                            </button>
+                            </td>
+                        </tr>
 
-                            <button class="btn btn-danger btn-sm">
-                                <i class="fas fa-trash"></i>
-                            </button>
-
-                        </td>
-                    </tr>
+                    @empty
+                        <tr>
+                            <td colspan="7" class="text-center">
+                                Belum ada data masyarakat.
+                            </td>
+                        </tr>
+                    @endforelse
 
                 </tbody>
 
@@ -183,5 +191,19 @@
 </div>
 
 </div>
+
+<form action="{{ route('masyarakat.destroy', $item->id) }}"
+    method="POST"
+    class="d-inline"
+    onsubmit="return confirm('Yakin ingin menghapus data ini?')">
+
+    @csrf
+    @method('DELETE')
+
+    <button type="submit" class="btn btn-danger btn-sm" title="Hapus">
+        <i class="fas fa-trash"></i>
+    </button>
+
+</form>
 
 @endsection

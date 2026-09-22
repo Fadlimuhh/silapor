@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\MasyarakatController;
+
 
 // Landing Page
 Route::get('/', function () {
@@ -63,9 +65,7 @@ Route::delete('/kategori/{category}', [CategoryController::class, 'destroy'])
 Route::get('/laporan/{report}', [ReportController::class, 'show'])
     ->name('laporan.show');
 
-Route::get('/masyarakat', function () {
-    return view('masyarakat.index');
-})->name('masyarakat');
+Route::resource('masyarakat', MasyarakatController::class);
 
 Route::get('/petugas', function () {
     return view('petugas.index');

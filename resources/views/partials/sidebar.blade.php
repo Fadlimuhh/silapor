@@ -57,8 +57,8 @@
                             Kategori
                         </a>
 
-                        <a class="collapse-item {{ request()->routeIs('masyarakat') ? 'active' : '' }}"
-                            href="{{ route('masyarakat') }}">
+                        <a class="collapse-item {{ request()->routeIs('masyarakat.*') ? 'active' : '' }}"
+                            href="{{ route('masyarakat.index') }}">
                             Masyarakat
                         </a>
             
