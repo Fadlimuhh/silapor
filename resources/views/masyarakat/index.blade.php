@@ -132,6 +132,34 @@
                             <td>{{ $item->name }}</td>
                             <td>{{ $item->no_hp }}</td>
                             <td>{{ $item->alamat }}</td>
+
+                            <td>
+
+                                <a href="{{ route('masyarakat.show', $item->id) }}"
+                                    class="btn btn-info btn-sm">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+
+                                <a href="{{ route('masyarakat.edit', $item->id) }}"
+                                    class="btn btn-warning btn-sm">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+
+                                <form action="{{ route('masyarakat.destroy', $item->id) }}"
+                                    method="POST"
+                                    class="d-inline"
+                                    onsubmit="return confirm('Yakin ingin menghapus data ini?')">
+
+                                    @csrf
+                                    @method('DELETE')
+
+                                    <button type="submit" class="btn btn-danger btn-sm">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+
+                                </form>
+
+                            </td>
                             <td>
                                 @if ($item->status === 'aktif')
                                     <span class="badge badge-success">Aktif</span>
@@ -191,19 +219,5 @@
 </div>
 
 </div>
-
-<form action="{{ route('masyarakat.destroy', $item->id) }}"
-    method="POST"
-    class="d-inline"
-    onsubmit="return confirm('Yakin ingin menghapus data ini?')">
-
-    @csrf
-    @method('DELETE')
-
-    <button type="submit" class="btn btn-danger btn-sm" title="Hapus">
-        <i class="fas fa-trash"></i>
-    </button>
-
-</form>
 
 @endsection
