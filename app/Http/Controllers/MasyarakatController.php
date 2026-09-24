@@ -13,7 +13,7 @@ class MasyarakatController extends Controller
      */
     public function index()
     {
-        $masyarakat = User::latest()->get();
+        $masyarakat = User::where('role', 'warga')->latest()->get();
 
         return view('masyarakat.index', compact('masyarakat'));
     }
@@ -42,6 +42,7 @@ class MasyarakatController extends Controller
         ]);
 
         $data['password'] = Hash::make($data['password']);
+        $data['role'] = 'warga';
 
         User::create($data);
 

@@ -38,7 +38,7 @@
             </a>
 
                 <div id="collapseManajemen"
-                    class="collapse {{ request()->routeIs('laporan') || request()->routeIs('masyarakat') || request()->routeIs('petugas') ? 'show' : '' }}"
+                    class="collapse {{ request()->routeIs('laporan') || request()->routeIs('masyarakat') || request()->routeIs('petugas.*') ? 'show' : '' }}"
                     data-parent="#accordionSidebar">
 
                     <div class="bg-white py-2 collapse-inner rounded">
@@ -62,8 +62,8 @@
                             Masyarakat
                         </a>
             
-                        <a class="collapse-item {{ request()->routeIs('petugas') ? 'active' : '' }}"
-                            href="{{ route('petugas') }}">
+                        <a class="collapse-item {{ request()->routeIs('petugas.*') ? 'active' : '' }}"
+                            href="{{ route('petugas.index') }}">
                             Petugas
                         </a>
 

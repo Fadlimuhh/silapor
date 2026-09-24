@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\MasyarakatController;
+use App\Http\Controllers\PetugasController;
 
 
 // Landing Page
@@ -67,9 +68,8 @@ Route::get('/laporan/{report}', [ReportController::class, 'show'])
 
 Route::resource('masyarakat', MasyarakatController::class);
 
-Route::get('/petugas', function () {
-    return view('petugas.index');
-})->name('petugas');
+Route::resource('petugas', PetugasController::class)
+    ->parameters(['petugas' => 'petugas']);
 
 Route::get('/statistik', function () {
     return view('statistik.index');
