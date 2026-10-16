@@ -6,188 +6,514 @@
 
 <div class="container-fluid">
 
-    <!-- Judul -->
+    {{-- HEADER --}}
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <div>
-            <h1 class="h3 mb-0 text-gray-800">Statistik Laporan</h1>
+            <h1 class="h3 mb-1 text-gray-800 font-weight-bold">
+                Statistik Laporan
+            </h1>
+
             <p class="mb-0 text-gray-600">
-                Ringkasan data statistik laporan masyarakat.
+                Ringkasan data laporan masyarakat berdasarkan kondisi terbaru.
             </p>
         </div>
     </div>
 
-    <!-- Card Statistik -->
+
+    {{-- CARD STATISTIK --}}
     <div class="row">
 
+        {{-- TOTAL --}}
         <div class="col-xl-3 col-md-6 mb-4">
             <div class="card border-left-primary shadow h-100 py-2">
                 <div class="card-body">
+
                     <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                         Total Laporan
                     </div>
-                    <div class="h4 font-weight-bold text-gray-800">
-                        125
+
+                    <div class="h4 mb-0 font-weight-bold text-gray-800">
+                        {{ $totalLaporan }}
                     </div>
+
+                    <small class="text-muted">
+                        Seluruh laporan
+                    </small>
+
                 </div>
             </div>
         </div>
 
+
+        {{-- MENUNGGU --}}
         <div class="col-xl-3 col-md-6 mb-4">
             <div class="card border-left-warning shadow h-100 py-2">
                 <div class="card-body">
+
                     <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                         Menunggu
                     </div>
-                    <div class="h4 font-weight-bold text-gray-800">
-                        15
+
+                    <div class="h4 mb-0 font-weight-bold text-gray-800">
+                        {{ $laporanMenunggu }}
                     </div>
+
+                    <small class="text-muted">
+                        Belum diproses
+                    </small>
+
                 </div>
             </div>
         </div>
 
+
+        {{-- DIPROSES --}}
         <div class="col-xl-3 col-md-6 mb-4">
             <div class="card border-left-info shadow h-100 py-2">
                 <div class="card-body">
+
                     <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
                         Diproses
                     </div>
-                    <div class="h4 font-weight-bold text-gray-800">
-                        20
+
+                    <div class="h4 mb-0 font-weight-bold text-gray-800">
+                        {{ $laporanDiproses }}
                     </div>
+
+                    <small class="text-muted">
+                        Sedang ditangani
+                    </small>
+
                 </div>
             </div>
         </div>
 
+
+        {{-- SELESAI --}}
         <div class="col-xl-3 col-md-6 mb-4">
             <div class="card border-left-success shadow h-100 py-2">
                 <div class="card-body">
+
                     <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                         Selesai
                     </div>
-                    <div class="h4 font-weight-bold text-gray-800">
-                        90
+
+                    <div class="h4 mb-0 font-weight-bold text-gray-800">
+                        {{ $laporanSelesai }}
                     </div>
+
+                    <small class="text-muted">
+                        Laporan selesai
+                    </small>
+
                 </div>
             </div>
         </div>
 
     </div>
 
-    <!-- Grafik -->
+
+    {{-- STATUS DITOLAK --}}
+    <div class="row">
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-danger shadow h-100 py-2">
+                <div class="card-body">
+
+                    <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+                        Ditolak
+                    </div>
+
+                    <div class="h4 mb-0 font-weight-bold text-gray-800">
+                        {{ $laporanDitolak }}
+                    </div>
+
+                    <small class="text-muted">
+                        Laporan ditolak
+                    </small>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    {{-- REKAP STATUS --}}
     <div class="card shadow mb-4">
 
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">
-                Grafik Laporan Per Bulan
+                <i class="fas fa-chart-bar mr-2"></i>
+                Rekap Status Laporan
             </h6>
         </div>
 
-        <div class="card-body text-center">
+        <div class="card-body">
 
-            <img src="{{ asset('assets/img/chart-placeholder.png') }}"
-                 class="img-fluid"
-                 style="max-height:350px;">
+            <div class="table-responsive">
 
-            <p class="text-muted mt-3">
-                Grafik akan ditampilkan setelah data laporan tersedia.
-            </p>
+                <table class="table table-bordered table-hover">
+
+                    <thead class="thead-light">
+
+                        <tr>
+                            <th>Status</th>
+                            <th width="150">Jumlah</th>
+                            <th width="150">Persentase</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        {{-- MENUNGGU --}}
+                        <tr>
+
+                            <td>
+                                <span class="badge badge-warning">
+                                    Menunggu
+                                </span>
+                            </td>
+
+                            <td>
+                                {{ $laporanMenunggu }}
+                            </td>
+
+                            <td>
+
+                                @if ($totalLaporan > 0)
+                                    {{ round(($laporanMenunggu / $totalLaporan) * 100, 1) }}%
+                                @else
+                                    0%
+                                @endif
+
+                            </td>
+
+                        </tr>
+
+
+                        {{-- DIPROSES --}}
+                        <tr>
+
+                            <td>
+                                <span class="badge badge-info">
+                                    Diproses
+                                </span>
+                            </td>
+
+                            <td>
+                                {{ $laporanDiproses }}
+                            </td>
+
+                            <td>
+
+                                @if ($totalLaporan > 0)
+                                    {{ round(($laporanDiproses / $totalLaporan) * 100, 1) }}%
+                                @else
+                                    0%
+                                @endif
+
+                            </td>
+
+                        </tr>
+
+
+                        {{-- SELESAI --}}
+                        <tr>
+
+                            <td>
+                                <span class="badge badge-success">
+                                    Selesai
+                                </span>
+                            </td>
+
+                            <td>
+                                {{ $laporanSelesai }}
+                            </td>
+
+                            <td>
+
+                                @if ($totalLaporan > 0)
+                                    {{ round(($laporanSelesai / $totalLaporan) * 100, 1) }}%
+                                @else
+                                    0%
+                                @endif
+
+                            </td>
+
+                        </tr>
+
+
+                        {{-- DITOLAK --}}
+                        <tr>
+
+                            <td>
+                                <span class="badge badge-danger">
+                                    Ditolak
+                                </span>
+                            </td>
+
+                            <td>
+                                {{ $laporanDitolak }}
+                            </td>
+
+                            <td>
+
+                                @if ($totalLaporan > 0)
+                                    {{ round(($laporanDitolak / $totalLaporan) * 100, 1) }}%
+                                @else
+                                    0%
+                                @endif
+
+                            </td>
+
+                        </tr>
+
+
+                        {{-- TOTAL --}}
+                        <tr class="font-weight-bold">
+
+                            <td>
+                                Total
+                            </td>
+
+                            <td>
+                                {{ $totalLaporan }}
+                            </td>
+
+                            <td>
+                                100%
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
 
         </div>
 
     </div>
 
-    <!-- Persentase -->
+
+    {{-- PROGRESS STATUS --}}
     <div class="card shadow mb-4">
 
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">
+                <i class="fas fa-tasks mr-2"></i>
                 Persentase Status Laporan
             </h6>
         </div>
 
         <div class="card-body">
 
-            <h4 class="small font-weight-bold">
-                Selesai
-                <span class="float-right">72%</span>
-            </h4>
+            {{-- SELESAI --}}
+            <div class="mb-4">
 
-            <div class="progress mb-4">
-                <div class="progress-bar bg-success"
-                     style="width:72%"></div>
+                <div class="d-flex justify-content-between mb-1">
+
+                    <span class="small font-weight-bold">
+                        Selesai
+                    </span>
+
+                    <span class="small font-weight-bold">
+                        @if ($totalLaporan > 0)
+                            {{ round(($laporanSelesai / $totalLaporan) * 100, 1) }}%
+                        @else
+                            0%
+                        @endif
+                    </span>
+
+                </div>
+
+                <div class="progress" style="height: 10px;">
+
+                    <div class="progress-bar bg-success"
+                         style="width:
+                         {{ $totalLaporan > 0 ? ($laporanSelesai / $totalLaporan) * 100 : 0 }}%;">
+                    </div>
+
+                </div>
+
             </div>
 
-            <h4 class="small font-weight-bold">
-                Diproses
-                <span class="float-right">16%</span>
-            </h4>
 
-            <div class="progress mb-4">
-                <div class="progress-bar bg-info"
-                     style="width:16%"></div>
+            {{-- DIPROSES --}}
+            <div class="mb-4">
+
+                <div class="d-flex justify-content-between mb-1">
+
+                    <span class="small font-weight-bold">
+                        Diproses
+                    </span>
+
+                    <span class="small font-weight-bold">
+
+                        @if ($totalLaporan > 0)
+                            {{ round(($laporanDiproses / $totalLaporan) * 100, 1) }}%
+                        @else
+                            0%
+                        @endif
+
+                    </span>
+
+                </div>
+
+                <div class="progress" style="height: 10px;">
+
+                    <div class="progress-bar bg-info"
+                         style="width:
+                         {{ $totalLaporan > 0 ? ($laporanDiproses / $totalLaporan) * 100 : 0 }}%;">
+                    </div>
+
+                </div>
+
             </div>
 
-            <h4 class="small font-weight-bold">
-                Menunggu
-                <span class="float-right">12%</span>
-            </h4>
 
-            <div class="progress">
-                <div class="progress-bar bg-warning"
-                     style="width:12%"></div>
+            {{-- MENUNGGU --}}
+            <div class="mb-4">
+
+                <div class="d-flex justify-content-between mb-1">
+
+                    <span class="small font-weight-bold">
+                        Menunggu
+                    </span>
+
+                    <span class="small font-weight-bold">
+
+                        @if ($totalLaporan > 0)
+                            {{ round(($laporanMenunggu / $totalLaporan) * 100, 1) }}%
+                        @else
+                            0%
+                        @endif
+
+                    </span>
+
+                </div>
+
+                <div class="progress" style="height: 10px;">
+
+                    <div class="progress-bar bg-warning"
+                         style="width:
+                         {{ $totalLaporan > 0 ? ($laporanMenunggu / $totalLaporan) * 100 : 0 }}%;">
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            {{-- DITOLAK --}}
+            <div>
+
+                <div class="d-flex justify-content-between mb-1">
+
+                    <span class="small font-weight-bold">
+                        Ditolak
+                    </span>
+
+                    <span class="small font-weight-bold">
+
+                        @if ($totalLaporan > 0)
+                            {{ round(($laporanDitolak / $totalLaporan) * 100, 1) }}%
+                        @else
+                            0%
+                        @endif
+
+                    </span>
+
+                </div>
+
+                <div class="progress" style="height: 10px;">
+
+                    <div class="progress-bar bg-danger"
+                         style="width:
+                         {{ $totalLaporan > 0 ? ($laporanDitolak / $totalLaporan) * 100 : 0 }}%;">
+                    </div>
+
+                </div>
+
             </div>
 
         </div>
 
     </div>
 
-    <!-- Rekap -->
-    <div class="card shadow">
+
+    {{-- LAPORAN BERDASARKAN KATEGORI --}}
+    <div class="card shadow mb-4">
 
         <div class="card-header py-3">
+
             <h6 class="m-0 font-weight-bold text-primary">
-                Rekap Statistik
+                <i class="fas fa-folder-open mr-2"></i>
+                Laporan Berdasarkan Kategori
             </h6>
+
         </div>
 
         <div class="card-body">
 
-            <table class="table table-bordered">
+            @if ($laporanPerKategori->count() > 0)
 
-                <thead>
+                <div class="table-responsive">
 
-                    <tr>
-                        <th>Status</th>
-                        <th>Total</th>
-                    </tr>
+                    <table class="table table-bordered table-hover">
 
-                </thead>
+                        <thead class="thead-light">
 
-                <tbody>
+                            <tr>
+                                <th>Kategori</th>
+                                <th width="150">Jumlah Laporan</th>
+                            </tr>
 
-                    <tr>
-                        <td>Menunggu</td>
-                        <td>15</td>
-                    </tr>
+                        </thead>
 
-                    <tr>
-                        <td>Diproses</td>
-                        <td>20</td>
-                    </tr>
+                        <tbody>
 
-                    <tr>
-                        <td>Selesai</td>
-                        <td>90</td>
-                    </tr>
+                            @foreach ($laporanPerKategori as $kategori => $jumlah)
 
-                    <tr class="font-weight-bold">
-                        <td>Total</td>
-                        <td>125</td>
-                    </tr>
+                                <tr>
 
-                </tbody>
+                                    <td>
+                                        <i class="fas fa-folder text-primary mr-2"></i>
+                                        {{ $kategori }}
+                                    </td>
 
-            </table>
+                                    <td>
+                                        <strong>
+                                            {{ $jumlah }}
+                                        </strong>
+                                    </td>
+
+                                </tr>
+
+                            @endforeach
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            @else
+
+                <div class="text-center py-4">
+
+                    <i class="fas fa-chart-pie fa-3x text-gray-300 mb-3"></i>
+
+                    <p class="text-muted mb-0">
+                        Belum ada data laporan untuk dianalisis.
+                    </p>
+
+                </div>
+
+            @endif
 
         </div>
 

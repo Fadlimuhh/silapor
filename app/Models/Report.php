@@ -14,6 +14,7 @@ class Report extends Model
         'alamat',
         'foto',
         'status',
+        'tanggapan',
     ];
 
     public function user()

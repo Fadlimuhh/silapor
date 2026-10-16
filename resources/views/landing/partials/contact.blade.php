@@ -1,113 +1,61 @@
-<!-- Contact Section -->
-<section id="contact" class="contact section">
+<section id="contact" class="silapor-contact">
 
-    <div class="container section-title" data-aos="fade-up">
-        <h2>Kontak</h2>
-        <p>
-            Hubungi kami jika memiliki pertanyaan atau membutuhkan informasi
-            mengenai layanan SiLapor.
-        </p>
-    </div>
+    <div class="container">
 
-    <div class="container" data-aos="fade-up" data-aos-delay="100">
+        <div class="contact-box">
 
-        <div class="row gy-4">
+            <div class="contact-glow"></div>
 
-            <!-- Informasi Kontak -->
-            <div class="col-lg-5">
+            <div class="contact-content">
 
-                <div class="info-wrap">
+                <span class="contact-label">
+                    SIAP MEMBUAT PERUBAHAN?
+                </span>
 
-                    <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="200">
-                        <i class="bi bi-geo-alt flex-shrink-0"></i>
+                <h2>
+                    Ada masalah di sekitar kamu?
+                    <span>Jangan hanya melihat.</span>
+                </h2>
 
-                        <div>
-                            <h3>Alamat</h3>
-                            <p>Kantor Pelayanan Masyarakat</p>
-                        </div>
-                    </div>
+                <p>
+                    Sampaikan laporan melalui SiLapor dan bantu
+                    menciptakan lingkungan yang lebih baik.
+                </p>
 
-                    <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="300">
-                        <i class="bi bi-telephone flex-shrink-0"></i>
+                <div class="contact-buttons">
 
-                        <div>
-                            <h3>Telepon</h3>
-                            <p>021-12345678</p>
-                        </div>
-                    </div>
+                    <a href="{{ route('login') }}" class="contact-btn-primary">
+                        Mulai Melapor
+                        <i class="bi bi-arrow-right"></i>
+                    </a>
 
-                    <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="400">
-                        <i class="bi bi-envelope flex-shrink-0"></i>
-
-                        <div>
-                            <h3>Email</h3>
-                            <p>info@silapor.id</p>
-                        </div>
-                    </div>
+                    <a href="{{ route('register') }}" class="contact-btn-secondary">
+                        Buat Akun
+                    </a>
 
                 </div>
 
             </div>
 
-            <!-- Form Kontak -->
-            <div class="col-lg-7">
+        </div>
 
-                <form action="#" method="post" class="php-email-form">
+        <div class="contact-footer">
 
-                    <div class="row gy-4">
+            <div>
+                <strong>SI LAPOR</strong>
+                <span>Sistem Pelaporan Masyarakat</span>
+            </div>
 
-                        <div class="col-md-6">
-                            <label for="name-field">Nama</label>
-                            <input
-                                type="text"
-                                name="name"
-                                id="name-field"
-                                class="form-control"
-                                placeholder="Nama Anda"
-                                required>
-                        </div>
+            <div class="contact-info">
+                <span>
+                    <i class="bi bi-envelope"></i>
+                    info@silapor.id
+                </span>
 
-                        <div class="col-md-6">
-                            <label for="email-field">Email</label>
-                            <input
-                                type="email"
-                                name="email"
-                                id="email-field"
-                                class="form-control"
-                                placeholder="Email Anda"
-                                required>
-                        </div>
-
-                        <div class="col-md-12">
-                            <label for="subject-field">Subjek</label>
-                            <input
-                                type="text"
-                                name="subject"
-                                id="subject-field"
-                                class="form-control"
-                                placeholder="Subjek pesan"
-                                required>
-                        </div>
-
-                        <div class="col-md-12">
-                            <label for="message-field">Pesan</label>
-                            <textarea
-                                name="message"
-                                id="message-field"
-                                class="form-control"
-                                rows="6"
-                                placeholder="Tulis pesan Anda"
-                                required></textarea>
-                        </div>
-
-                        <div class="col-md-12 text-center">
-                            <button type="submit">Kirim Pesan</button>
-                        </div>
-
-                    </div>
-
-                </form>
-
+                <span>
+                    <i class="bi bi-telephone"></i>
+                    021-12345678
+                </span>
             </div>
 
         </div>
@@ -115,4 +63,177 @@
     </div>
 
 </section>
-<!-- /Contact Section -->
+
+
+<style>
+
+.silapor-contact {
+    padding: 100px 0 40px;
+    background: #fff;
+}
+
+.contact-box {
+    position: relative;
+    overflow: hidden;
+    min-height: 550px;
+    border-radius: 35px;
+    background: #101828;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.contact-glow {
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    background: rgba(37,99,235,.35);
+    filter: blur(100px);
+    top: -300px;
+    right: -100px;
+}
+
+.contact-content {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+    padding: 70px 30px;
+}
+
+.contact-label {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    color: #84adff;
+}
+
+.contact-content h2 {
+    margin: 25px 0;
+    font-size: clamp(42px, 5vw, 68px);
+    line-height: 1.08;
+    letter-spacing: -2.5px;
+    color: #fff;
+    font-weight: 800;
+}
+
+.contact-content h2 span {
+    color: #84adff;
+}
+
+.contact-content p {
+    color: #98a2b3;
+    font-size: 18px;
+    line-height: 1.7;
+    max-width: 600px;
+    margin: 0 auto 35px;
+}
+
+.contact-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.contact-btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 20px;
+    padding: 16px 22px 16px 25px;
+    border-radius: 50px;
+    background: #fff;
+    color: #101828;
+    text-decoration: none;
+    font-weight: 700;
+    transition: .3s;
+}
+
+.contact-btn-primary:hover {
+    color: #fff;
+    background: #2563eb;
+    transform: translateY(-3px);
+}
+
+.contact-btn-primary i {
+    font-size: 18px;
+}
+
+.contact-btn-secondary {
+    padding: 16px 25px;
+    border-radius: 50px;
+    border: 1px solid #475467;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    transition: .3s;
+}
+
+.contact-btn-secondary:hover {
+    background: #fff;
+    color: #101828;
+}
+
+.contact-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 35px 5px 15px;
+    color: #667085;
+}
+
+.contact-footer strong {
+    display: block;
+    color: #101828;
+    font-size: 16px;
+}
+
+.contact-footer span {
+    font-size: 12px;
+}
+
+.contact-info {
+    display: flex;
+    gap: 25px;
+}
+
+.contact-info span {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.contact-info i {
+    color: #2563eb;
+}
+
+@media(max-width: 767px) {
+
+    .contact-box {
+        min-height: 500px;
+        border-radius: 25px;
+    }
+
+    .contact-content h2 {
+        font-size: 40px;
+    }
+
+    .contact-content p {
+        font-size: 15px;
+    }
+
+    .contact-footer {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+    }
+
+    .contact-info {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+}
+
+</style>

@@ -13,9 +13,31 @@ class MasyarakatController extends Controller
      */
     public function index()
     {
-        $masyarakat = User::where('role', 'warga')->latest()->get();
+        $masyarakat = User::where('role', 'warga')
+            ->latest()
+            ->get();
 
-        return view('masyarakat.index', compact('masyarakat'));
+        $totalMasyarakat = User::where('role', 'warga')->count();
+
+        $masyarakatAktif = User::where('role', 'warga')
+            ->where('status', 'aktif')
+            ->count();
+
+        $masyarakatBelumVerifikasi = User::where('role', 'warga')
+            ->where('status', 'belum_verifikasi')
+            ->count();
+
+        $masyarakatNonaktif = User::where('role', 'warga')
+            ->where('status', 'nonaktif')
+            ->count();
+
+        return view('masyarakat.index', compact(
+            'masyarakat',
+            'totalMasyarakat',
+            'masyarakatAktif',
+            'masyarakatBelumVerifikasi',
+            'masyarakatNonaktif'
+        ));
     }
 
     /**

@@ -5,14 +5,22 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Report;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ReportController extends Controller
 {
     public function index()
     {
-        $reports = Report::with(['user', 'category'])
-            ->latest()
-            ->get();
+        if (Auth::user()->role === 'warga') {
+            $reports = Report::with(['user', 'category'])
+                ->where('user_id', Auth::id())
+                ->latest()
+                ->get();
+        } else {
+            $reports = Report::with(['user', 'category'])
+                ->latest()
+                ->get();
+        }
 
         return view('laporan.index', compact('reports'));
     }
@@ -34,7 +42,10 @@ class ReportController extends Controller
             'foto' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
-        $data['user_id'] = 1;
+        // Laporan otomatis menjadi milik user yang sedang login
+        $data['user_id'] = Auth::id();
+
+        // Status awal laporan
         $data['status'] = 'menunggu';
 
         if ($request->hasFile('foto')) {
@@ -79,6 +90,21 @@ class ReportController extends Controller
             ->with('success', 'Laporan berhasil diperbarui.');
     }
 
+    public function updateStatus(Request $request, Report $report)
+    {
+        $data = $request->validate([
+            'status' => 'required|in:menunggu,diproses,selesai,ditolak',
+        ]);
+
+        $report->update([
+            'status' => $data['status'],
+        ]);
+
+        return redirect()
+            ->route('laporan')
+            ->with('success', 'Status laporan berhasil diperbarui.');
+    }
+
     public function destroy(Report $report)
     {
         $report->delete();
@@ -93,5 +119,20 @@ class ReportController extends Controller
         $report->load(['user', 'category']);
 
         return view('laporan.show', compact('report'));
+    }
+
+    public function updateTanggapan(Request $request, Report $report)
+    {
+        $data = $request->validate([
+            'tanggapan' => 'required|string',
+        ]);
+
+        $report->update([
+            'tanggapan' => $data['tanggapan'],
+        ]);
+
+        return redirect()
+            ->route('laporan.show', $report->id)
+            ->with('success', 'Tanggapan berhasil dikirim.');
     }
 }

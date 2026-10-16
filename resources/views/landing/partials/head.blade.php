@@ -1,13 +1,13 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Index - Arsha Bootstrap Template</title>
+  <title>SiLapor — Sistem Pelaporan Masyarakat</title>
   <meta name="description" content="">
   <meta name="keywords" content="">
 
   <!-- Favicons -->
-  <link href="{{ asset('assets-landing/img/favicon.png') }}" rel="icon">
-  <link href="{{ asset('assets-landing/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
+  <link rel="icon" type="image/png" href="{{ asset('assets/img/silapor-favicon.png') }}?v=4">
+  <link rel="apple-touch-icon" href="{{ asset('assets/img/silapor-favicon.png') }}?v=4">
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com" rel="preconnect">
@@ -23,6 +23,26 @@
   
   <!-- Main CSS File -->
   <link href="{{ asset('assets-landing/css/main.css') }}" rel="stylesheet">
+
+  <style>
+    /* Smooth scroll untuk navigasi satu halaman */
+    html {
+        scroll-behavior: smooth;
+        scroll-padding-top: 90px;
+    }
+
+    /* Hindari judul section tertutup header fixed */
+    main.main section[id] {
+        scroll-margin-top: 90px;
+    }
+
+    /* Hormati pengaturan pengguna yang mengurangi animasi */
+    @media (prefers-reduced-motion: reduce) {
+        html {
+            scroll-behavior: auto;
+        }
+    }
+</style>
 
   <!-- =======================================================
   * Template Name: Arsha

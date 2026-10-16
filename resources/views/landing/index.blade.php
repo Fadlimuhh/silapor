@@ -1,3 +1,4 @@
+
 @extends('landing.layouts.app')
 
 @section('content')
@@ -14,12 +15,12 @@
 
 @include('landing.partials.contact')
 
-<!-- Scroll Top -->
-<a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center">
+{{-- Tombol kembali ke atas --}}
+<a href="#hero"
+   id="scroll-top"
+   class="scroll-top d-flex align-items-center justify-content-center"
+   aria-label="Kembali ke atas">
     <i class="bi bi-arrow-up-short"></i>
 </a>
-
-<!-- Preloader -->
-<div id="preloader"></div>
 
 @endsection

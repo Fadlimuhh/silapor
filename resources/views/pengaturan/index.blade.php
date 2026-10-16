@@ -6,105 +6,212 @@
 
 <div class="container-fluid">
 
-    <!-- Judul -->
+    {{-- HEADER --}}
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <div>
-            <h1 class="h3 mb-0 text-gray-800">Pengaturan</h1>
+            <h1 class="h3 mb-1 text-gray-800 font-weight-bold">
+                Pengaturan
+            </h1>
+
             <p class="mb-0 text-gray-600">
                 Atur informasi dasar aplikasi SiLapor.
             </p>
         </div>
     </div>
 
+
+    {{-- SUCCESS --}}
+    @if (session('success'))
+        <div class="alert alert-success shadow-sm">
+            <i class="fas fa-check-circle mr-2"></i>
+            {{ session('success') }}
+        </div>
+    @endif
+
+
+    {{-- ERROR --}}
+    @if ($errors->any())
+        <div class="alert alert-danger shadow-sm">
+            <strong>Terjadi kesalahan:</strong>
+
+            <ul class="mb-0 mt-2">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
+
+    {{-- PENGATURAN WEBSITE --}}
     <div class="card shadow mb-4">
 
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">
+                <i class="fas fa-cog mr-2"></i>
                 Pengaturan Website
             </h6>
         </div>
 
         <div class="card-body">
 
-            <form>
+            <form action="{{ route('pengaturan.update') }}"
+                  method="POST"
+                  enctype="multipart/form-data">
+
+                @csrf
+                @method('PUT')
 
                 <div class="row">
 
                     <div class="col-md-6">
 
                         <div class="form-group">
-                            <label><strong>Nama Website</strong></label>
-                            <input type="text"
-                                   class="form-control"
-                                   value="SiLapor">
+
+                            <label>
+                                <strong>Nama Website</strong>
+                            </label>
+
+                            <input
+                                type="text"
+                                name="nama_website"
+                                class="form-control"
+                                value="{{ old('nama_website', $setting->nama_website) }}"
+                                required
+                            >
+
                         </div>
 
                     </div>
 
+
                     <div class="col-md-6">
 
                         <div class="form-group">
-                            <label><strong>Email Admin</strong></label>
-                            <input type="email"
-                                   class="form-control"
-                                   value="admin@silapor.id">
+
+                            <label>
+                                <strong>Email Admin</strong>
+                            </label>
+
+                            <input
+                                type="email"
+                                name="email_admin"
+                                class="form-control"
+                                value="{{ old('email_admin', $setting->email_admin) }}"
+                                required
+                            >
+
                         </div>
 
                     </div>
 
                 </div>
+
 
                 <div class="row">
 
                     <div class="col-md-6">
 
                         <div class="form-group">
-                            <label><strong>Nomor Telepon</strong></label>
-                            <input type="text"
-                                   class="form-control"
-                                   value="081234567890">
+
+                            <label>
+                                <strong>Nomor Telepon</strong>
+                            </label>
+
+                            <input
+                                type="text"
+                                name="nomor_telepon"
+                                class="form-control"
+                                value="{{ old('nomor_telepon', $setting->nomor_telepon) }}"
+                            >
+
                         </div>
 
                     </div>
+
 
                     <div class="col-md-6">
 
                         <div class="form-group">
-                            <label><strong>Alamat</strong></label>
-                            <input type="text"
-                                   class="form-control"
-                                   value="Jakarta Barat">
+
+                            <label>
+                                <strong>Alamat</strong>
+                            </label>
+
+                            <input
+                                type="text"
+                                name="alamat"
+                                class="form-control"
+                                value="{{ old('alamat', $setting->alamat) }}"
+                            >
+
                         </div>
 
                     </div>
 
                 </div>
 
-                <div class="form-group">
-
-                    <label><strong>Deskripsi Website</strong></label>
-
-                    <textarea class="form-control"
-                              rows="4">Sistem Pelaporan Masyarakat berbasis web.</textarea>
-
-                </div>
 
                 <div class="form-group">
 
-                    <label><strong>Logo Website</strong></label>
+                    <label>
+                        <strong>Deskripsi Website</strong>
+                    </label>
 
-                    <input type="file"
-                           class="form-control-file">
+                    <textarea
+                        name="deskripsi"
+                        class="form-control"
+                        rows="4"
+                    >{{ old('deskripsi', $setting->deskripsi) }}</textarea>
 
                 </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        <strong>Logo Website</strong>
+                    </label>
+
+                    <input
+                        type="file"
+                        name="logo"
+                        class="form-control-file"
+                        accept=".jpg,.jpeg,.png"
+                    >
+
+                    @if ($setting->logo)
+
+                        <div class="mt-3">
+
+                            <small class="text-muted d-block mb-2">
+                                Logo saat ini:
+                            </small>
+
+                            <img
+                                src="{{ asset('storage/' . $setting->logo) }}"
+                                alt="Logo"
+                                style="height:70px; object-fit:contain;"
+                            >
+
+                        </div>
+
+                    @endif
+
+                </div>
+
 
                 <hr>
 
+
                 <div class="text-right">
 
-                    <button class="btn btn-primary">
+                    <button
+                        type="submit"
+                        class="btn btn-primary"
+                    >
 
-                        <i class="fas fa-save"></i>
+                        <i class="fas fa-save mr-1"></i>
 
                         Simpan Pengaturan
 
@@ -118,116 +225,141 @@
 
     </div>
 
-</div>
 
-<!-- Informasi Sistem -->
-<div class="card shadow mb-4">
+    {{-- INFORMASI SISTEM --}}
+    <div class="card shadow mb-4">
 
-    <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">
-            Informasi Sistem
-        </h6>
-    </div>
+        <div class="card-header py-3">
 
-    <div class="card-body">
+            <h6 class="m-0 font-weight-bold text-primary">
+                <i class="fas fa-info-circle mr-2"></i>
+                Informasi Sistem
+            </h6>
 
-        <table class="table table-bordered">
+        </div>
 
-            <tbody>
 
-                <tr>
-                    <th width="35%">Nama Aplikasi</th>
-                    <td>SiLapor</td>
-                </tr>
+        <div class="card-body">
 
-                <tr>
-                    <th>Versi</th>
-                    <td>1.0.0</td>
-                </tr>
+            <div class="table-responsive">
 
-                <tr>
-                    <th>Framework</th>
-                    <td>Laravel 13</td>
-                </tr>
+                <table class="table table-bordered">
 
-                <tr>
-                    <th>Bahasa Pemrograman</th>
-                    <td>PHP 8</td>
-                </tr>
+                    <tbody>
 
-                <tr>
-                    <th>Database</th>
-                    <td>MySQL</td>
-                </tr>
+                        <tr>
+                            <th width="35%">Nama Aplikasi</th>
+                            <td>{{ $setting->nama_website }}</td>
+                        </tr>
 
-                <tr>
-                    <th>Developer</th>
-                    <td>Fadlimuhh</td>
-                </tr>
+                        <tr>
+                            <th>Versi</th>
+                            <td>1.0.0</td>
+                        </tr>
 
-                <tr>
-                    <th>Tahun</th>
-                    <td>2026</td>
-                </tr>
+                        <tr>
+                            <th>Framework</th>
+                            <td>Laravel 13</td>
+                        </tr>
 
-            </tbody>
+                        <tr>
+                            <th>Bahasa Pemrograman</th>
+                            <td>PHP 8</td>
+                        </tr>
 
-        </table>
+                        <tr>
+                            <th>Database</th>
+                            <td>MySQL</td>
+                        </tr>
 
-    </div>
+                        <tr>
+                            <th>Developer</th>
+                            <td>Fadlimuhh</td>
+                        </tr>
 
-</div>
+                        <tr>
+                            <th>Tahun</th>
+                            <td>2026</td>
+                        </tr>
 
-<!-- Statistik Sistem -->
-<div class="card shadow">
+                    </tbody>
 
-    <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">
-            Statistik Sistem
-        </h6>
-    </div>
-
-    <div class="card-body">
-
-        <div class="row text-center">
-
-            <div class="col-md-3">
-
-                <h3 class="text-primary">
-                    125
-                </h3>
-
-                <p>Total Laporan</p>
+                </table>
 
             </div>
 
-            <div class="col-md-3">
+        </div>
 
-                <h3 class="text-success">
-                    82
-                </h3>
+    </div>
 
-                <p>Masyarakat</p>
 
-            </div>
+    {{-- STATISTIK SISTEM --}}
+    <div class="card shadow mb-4">
 
-            <div class="col-md-3">
+        <div class="card-header py-3">
 
-                <h3 class="text-info">
-                    8
-                </h3>
+            <h6 class="m-0 font-weight-bold text-primary">
+                <i class="fas fa-chart-line mr-2"></i>
+                Statistik Sistem
+            </h6>
 
-                <p>Petugas</p>
+        </div>
 
-            </div>
 
-            <div class="col-md-3">
+        <div class="card-body">
 
-                <h3 class="text-warning">
-                    4
-                </h3>
+            <div class="row text-center">
 
-                <p>Kategori</p>
+                <div class="col-md-3 mb-3">
+
+                    <h3 class="text-primary font-weight-bold">
+                        {{ $totalLaporan }}
+                    </h3>
+
+                    <p class="text-muted mb-0">
+                        Total Laporan
+                    </p>
+
+                </div>
+
+
+                <div class="col-md-3 mb-3">
+
+                    <h3 class="text-success font-weight-bold">
+                        {{ $totalMasyarakat }}
+                    </h3>
+
+                    <p class="text-muted mb-0">
+                        Masyarakat
+                    </p>
+
+                </div>
+
+
+                <div class="col-md-3 mb-3">
+
+                    <h3 class="text-info font-weight-bold">
+                        {{ $totalPetugas }}
+                    </h3>
+
+                    <p class="text-muted mb-0">
+                        Petugas
+                    </p>
+
+                </div>
+
+
+                <div class="col-md-3 mb-3">
+
+                    <h3 class="text-warning font-weight-bold">
+                        {{ $totalKategori }}
+                    </h3>
+
+                    <p class="text-muted mb-0">
+                        Kategori
+                    </p>
+
+                </div>
 
             </div>
 
@@ -237,5 +369,4 @@
 
 </div>
 
-@endsection 
-
+@endsection

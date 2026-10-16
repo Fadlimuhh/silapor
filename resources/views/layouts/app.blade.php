@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 
 <head>
     @include('partials.styles')
@@ -17,7 +17,9 @@
 
             @include('partials.topbar')
 
-            @yield('content')
+            <main class="silapor-main">
+                @yield('content')
+            </main>
 
         </div>
 
@@ -32,4 +34,5 @@
 @include('partials.scripts')
 
 </body>
+
 </html>
